@@ -76,6 +76,7 @@ def build_model():
                            ])
     
     # Parameters for grid search
+    # (Note parameters had to be commented out as grid search took too long)
     parameters = {'clf__estimator__n_neighbors': [3, 5, 7, 9], 
               'vect__ngram_range':  [(1, 1) , (1,2) ],
               #'vect__max_df': (0.5, 0.75, 1.0),
