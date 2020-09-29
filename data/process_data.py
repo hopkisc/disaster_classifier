@@ -4,6 +4,16 @@ import re
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    Function reads the csv files containing messages and categories into 
+    dataframes,  then merges them 
+    
+    Input: messages_filepath - file path of disaster_messages.csv
+           categories_filepath - file path of disaster_categories.csv
+           
+    Output: df - dataframe containing merged data 
+    
+    '''
     # load messages dataset
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -15,6 +25,16 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
+        '''
+    Function that derives feature names and values from messages data, 
+    then drops the duplicates found and returns the cleaned dataframe 
+    
+    Input: df - dataframe containing merged data 
+           
+    Output: df - cleaned dataframe
+    
+    '''    
+    
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(pat=';', expand=True)
     
@@ -42,6 +62,15 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filename):
+        '''
+    Function that saves the cleaned dataframe to an SQLite database as
+    a table 
+    
+    Input: df - cleaned dataframe 
+           database_filename - name of database in which to store data 
+           
+    
+    '''
     engine = create_engine("sqlite:///{}".format(database_filename))
     df.to_sql('clean_cats', engine, index=False)  
 
