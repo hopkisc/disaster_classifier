@@ -97,20 +97,20 @@ def evaluate_model(model, X_test, Y_test, category_names):
            category_names -  target variable names derived earlier 
 
     
-    '''
+     '''
     # Optimal parameters found according to grid search 
-     print("Best Parameters:", model.best_params_)
+    print("Best Parameters:", model.best_params_)
     
-     # predict on test data
-     y_pred = model.predict(X_test)
+    # predict on test data
+    y_pred = model.predict(X_test)
 
      # display results across all categories
-     for i in range (Y_test.shape[1]):
+    for i in range (Y_test.shape[1]):
          print(classification_report(Y_test.iloc[:,i], pd.DataFrame(y_pred)[i]))
 
         
 def save_model(model, model_filepath):
-       '''
+    '''
     Function that saves the optimised, fitted model as a pickle file 
     with the name specified
     
@@ -118,8 +118,8 @@ def save_model(model, model_filepath):
 
     
     '''
-     # save the model to disk
-     pickle.dump(model, open(model_filepath, 'wb'))
+    # save the model to disk
+    pickle.dump(model, open(model_filepath, 'wb'))
 
 
 def main():

@@ -43,9 +43,59 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
+    cat_counts = []
+    cat_names = list(df.drop(['message', 'original', 'genre'], axis = 1).columns)
+        
+    for c in cat_names:
+        cat_counts.append(df[c].sum())
+    
+    social = df[df['genre']== 'social']
+    soc_cat_names = list(social.drop(['message', 'original', 'genre', 'related'], axis = 1).columns)
+    soc_cat_counts = []
+    
+    for c in soc_cat_names:
+        soc_cat_counts.append(df[c].sum())
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
+        {
+            'data': [
+                Bar(
+                    x=cat_names,
+                    y=cat_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category"
+                }
+            }
+        },
+        
+       {
+            'data': [
+                Bar(
+                    x=soc_cat_names,
+                    y=soc_cat_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Social Messages, "Related" Category removed ',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category"
+                }
+            }
+        },
+        
         {
             'data': [
                 Bar(

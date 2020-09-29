@@ -25,7 +25,7 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
-        '''
+    '''
     Function that derives feature names and values from messages data, 
     then drops the duplicates found and returns the cleaned dataframe 
     
@@ -56,13 +56,14 @@ def clean_data(df):
     # concatenate the original dataframe with the new `categories` dataframe
     df = df.merge(categories, on=df.index)
     
-    # drop duplicates
+    # convert to binary and drop duplicates
+    df['related'] = df['related'].apply(lambda x: 0 if x==0 else 1)
     df = df.drop(['id', 'key_0'], axis = 1).drop_duplicates()
     
     return df
 
 def save_data(df, database_filename):
-        '''
+    '''
     Function that saves the cleaned dataframe to an SQLite database as
     a table 
     
@@ -72,7 +73,7 @@ def save_data(df, database_filename):
     
     '''
     engine = create_engine("sqlite:///{}".format(database_filename))
-    df.to_sql('clean_cats', engine, index=False)  
+    df.to_sql('clean_cats', engine, index=False, if_exists = 'replace')  
 
 
 def main():
