@@ -38,3 +38,6 @@ Thanks to Udacity for FAQs and providing the template for the code
 - pickle
 - nltk
 - sklearn
+
+### Link to Repo
+https://github.com/hopkisc/disaster_classifier
